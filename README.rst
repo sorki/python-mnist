@@ -4,7 +4,6 @@ python-mnist
 Simple MNIST data parser written in python.
 
 MNIST is a database of handwritten digits available on http://yann.lecun.com/exdb/mnist/.
-Database files are stored in /data directory.
 
 Usage:
  - from mnist import MNIST
