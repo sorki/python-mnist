@@ -79,7 +79,7 @@ class MNIST(object):
     def display(cls, img, width=28):
         render = ''
         for i in range(len(img)):
-            if i % 28 == 0: render += '\n'
+            if i % width == 0: render += '\n'
             if img[i] > 200:
                 render += '1'
             else:
