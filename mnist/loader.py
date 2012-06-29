@@ -1,6 +1,8 @@
 import os
 import struct
 from array import array
+import Image
+import numpy
 
 class MNIST(object):
     def __init__(self, path='.'):
@@ -85,9 +87,21 @@ class MNIST(object):
             else:
                 render += '0'
         return render
+    
+    def render_image(self, image, path):
+    	l = []
+    	for y in xrange(28):
+    		t = []
+    		for x in xrange(28):
+    			pixel = image[y*28+x]
+    			t.append([pixel,pixel,pixel])
+    		l.append(t)
+    	image = Image.fromarray(numpy.uint8(l))
+    	image.save(path)
 
 if __name__ == "__main__":
-    print 'Testing'
-    mn = MNIST('.')
-    if mn.test():
-        print 'Passed'
+	pathToLibrary = os.path.split(os.path.split(__file__)[0])[0] + "/"
+	dataDir = pathToLibrary + "data/"
+	mn = MNIST(dataDir)
+	images, labels = mn.load_training()
+	mn.render_image(images[0], pathToLibrary + "test.jpg")
