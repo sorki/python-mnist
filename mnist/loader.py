@@ -6,11 +6,11 @@ class MNIST(object):
     def __init__(self, path='.'):
         self.path = path
 
-        self.test_img_fname = 't10k-images-idx3-ubyte'
-        self.test_lbl_fname = 't10k-labels-idx1-ubyte'
+        self.test_img_fname = 't10k-images.idx3-ubyte'
+        self.test_lbl_fname = 't10k-labels.idx1-ubyte'
 
-        self.train_img_fname = 'train-images-idx3-ubyte'
-        self.train_lbl_fname = 'train-labels-idx1-ubyte'
+        self.train_img_fname = 'train-images.idx3-ubyte'
+        self.train_lbl_fname = 'train-labels.idx1-ubyte'
 
         self.test_images = []
         self.test_labels = []
@@ -76,14 +76,14 @@ class MNIST(object):
         return True
 
     @classmethod
-    def display(cls, img, width=28):
+    def display(cls, img, width=28, threshold=200):
         render = ''
         for i in range(len(img)):
             if i % width == 0: render += '\n'
-            if img[i] > 200:
-                render += '1'
+            if img[i] > threshold:
+                render += chr(64)
             else:
-                render += '0'
+                render += '.'
         return render
 
 if __name__ == "__main__":
