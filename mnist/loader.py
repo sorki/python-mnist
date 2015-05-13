@@ -81,7 +81,7 @@ class MNIST(object):
         for i in range(len(img)):
             if i % width == 0: render += '\n'
             if img[i] > threshold:
-                render += chr(64)
+                render += '@'
             else:
                 render += '.'
         return render
