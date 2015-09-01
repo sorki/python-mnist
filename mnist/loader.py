@@ -43,7 +43,7 @@ class MNIST(object):
             magic, size = struct.unpack(">II", file.read(8))
             if magic != 2049:
                 raise ValueError('Magic number mismatch, expected 2049,'
-                                 'got %d' % magic)
+                                 'got {}'.format(magic))
 
             labels = array("B", file.read())
 
@@ -51,15 +51,15 @@ class MNIST(object):
             magic, size, rows, cols = struct.unpack(">IIII", file.read(16))
             if magic != 2051:
                 raise ValueError('Magic number mismatch, expected 2051,'
-                                 'got %d' % magic)
+                                 'got {}'.format(magic))
 
             image_data = array("B", file.read())
 
         images = []
-        for i in xrange(size):
+        for i in range(size):
             images.append([0] * rows * cols)
 
-        for i in xrange(size):
+        for i in range(size):
             images[i][:] = image_data[i * rows * cols:(i + 1) * rows * cols]
 
         return images, labels
