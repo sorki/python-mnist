@@ -7,11 +7,11 @@ class MNIST(object):
     def __init__(self, path='.'):
         self.path = path
 
-        self.test_img_fname = 't10k-images.idx3-ubyte'
-        self.test_lbl_fname = 't10k-labels.idx1-ubyte'
+        self.test_img_fname = 't10k-images-idx3-ubyte'
+        self.test_lbl_fname = 't10k-labels-idx1-ubyte'
 
-        self.train_img_fname = 'train-images.idx3-ubyte'
-        self.train_lbl_fname = 'train-labels.idx1-ubyte'
+        self.train_img_fname = 'train-images-idx3-ubyte'
+        self.train_lbl_fname = 'train-labels-idx1-ubyte'
 
         self.test_images = []
         self.test_labels = []
