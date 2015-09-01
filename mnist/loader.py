@@ -2,6 +2,7 @@ import os
 import struct
 from array import array
 
+
 class MNIST(object):
     def __init__(self, path='.'):
         self.path = path
@@ -20,7 +21,7 @@ class MNIST(object):
 
     def load_testing(self):
         ims, labels = self.load(os.path.join(self.path, self.test_img_fname),
-                         os.path.join(self.path, self.test_lbl_fname))
+                                os.path.join(self.path, self.test_lbl_fname))
 
         self.test_images = ims
         self.test_labels = labels
@@ -29,7 +30,7 @@ class MNIST(object):
 
     def load_training(self):
         ims, labels = self.load(os.path.join(self.path, self.train_img_fname),
-                         os.path.join(self.path, self.train_lbl_fname))
+                                os.path.join(self.path, self.train_lbl_fname))
 
         self.train_images = ims
         self.train_labels = labels
@@ -42,7 +43,7 @@ class MNIST(object):
             magic, size = struct.unpack(">II", file.read(8))
             if magic != 2049:
                 raise ValueError('Magic number mismatch, expected 2049,'
-                    'got %d' % magic)
+                                 'got %d' % magic)
 
             labels = array("B", file.read())
 
@@ -50,16 +51,16 @@ class MNIST(object):
             magic, size, rows, cols = struct.unpack(">IIII", file.read(16))
             if magic != 2051:
                 raise ValueError('Magic number mismatch, expected 2051,'
-                    'got %d' % magic)
+                                 'got %d' % magic)
 
             image_data = array("B", file.read())
 
         images = []
         for i in xrange(size):
-            images.append([0]*rows*cols)
+            images.append([0] * rows * cols)
 
         for i in xrange(size):
-            images[i][:] = image_data[i*rows*cols : (i+1)*rows*cols]
+            images[i][:] = image_data[i * rows * cols:(i + 1) * rows * cols]
 
         return images, labels
 
@@ -79,7 +80,8 @@ class MNIST(object):
     def display(cls, img, width=28, threshold=200):
         render = ''
         for i in range(len(img)):
-            if i % width == 0: render += '\n'
+            if i % width == 0:
+                render += '\n'
             if img[i] > threshold:
                 render += '@'
             else:
