@@ -64,18 +64,6 @@ class MNIST(object):
 
         return images, labels
 
-    def test(self):
-        test_img, test_label = self.load_testing()
-        train_img, train_label = self.load_training()
-        assert len(test_img) == len(test_label)
-        assert len(test_img) == 10000
-        assert len(train_img) == len(train_label)
-        assert len(train_img) == 60000
-        print 'Showing num:%d' % train_label[0]
-        print self.display(train_img[0])
-        print
-        return True
-
     @classmethod
     def display(cls, img, width=28, threshold=200):
         render = ''
@@ -87,9 +75,3 @@ class MNIST(object):
             else:
                 render += '.'
         return render
-
-if __name__ == "__main__":
-    print 'Testing'
-    mn = MNIST('.')
-    if mn.test():
-        print 'Passed'
