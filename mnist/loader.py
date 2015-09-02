@@ -56,10 +56,10 @@ class MNIST(object):
             image_data = array("B", file.read())
 
         images = []
-        for i in xrange(size):
+        for i in range(size):
             images.append([0] * rows * cols)
 
-        for i in xrange(size):
+        for i in range(size):
             images[i][:] = image_data[i * rows * cols:(i + 1) * rows * cols]
 
         return images, labels
