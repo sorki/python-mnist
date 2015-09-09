@@ -1,7 +1,7 @@
 python-mnist
 ============
 
-Simple MNIST data parser written in python.
+Simple MNIST data parser written in pure Python.
 
 MNIST is a database of handwritten digits available on http://yann.lecun.com/exdb/mnist/.
 
