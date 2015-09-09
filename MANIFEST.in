@@ -1,0 +1,7 @@
+include MANIFEST.in
+include LICENSE
+include README.rst
+include get_data.sh
+include test.sh
+recursive-include mnist *.py
+recursive-include tests *.py
