@@ -39,5 +39,4 @@ Code sample::
 
   from mnist import MNIST
   mndata = MNIST('./dir_with_mnist_data_files')
-  mndata.load_training()
-  mndata.load_testing()
+  images, labels = mndata.load_training()
