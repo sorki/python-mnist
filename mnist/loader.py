@@ -1,3 +1,4 @@
+import gzip
 import os
 import struct
 from array import array
@@ -49,7 +50,7 @@ class MNISTException(Exception):
     pass
 
 class MNIST(object):
-    def __init__(self, path='.', mode='vanilla', return_type='lists'):
+    def __init__(self, path='.', mode='vanilla', return_type='lists', gz=False):
         self.path = path
 
         assert mode in _allowed_modes, \
@@ -70,6 +71,8 @@ class MNIST(object):
 
         self.train_img_fname = 'train-images-idx3-ubyte'
         self.train_lbl_fname = 'train-labels-idx1-ubyte'
+
+        self.gz = gz
 
         self.test_images = []
         self.test_labels = []
@@ -160,9 +163,14 @@ class MNIST(object):
 
         return images
 
-    @classmethod
-    def load(cls, path_img, path_lbl):
-        with open(path_lbl, 'rb') as file:
+    def opener(self, path_fn, *args, **kwargs):
+        if self.gz:
+            return gzip.open(path_fn + '.gz', *args, **kwargs)
+        else:
+            return open(*args, **kwargs)
+
+    def load(self, path_img, path_lbl):
+        with self.opener(path_lbl, 'rb') as file:
             magic, size = struct.unpack(">II", file.read(8))
             if magic != 2049:
                 raise ValueError('Magic number mismatch, expected 2049,'
@@ -170,7 +178,7 @@ class MNIST(object):
 
             labels = array("B", file.read())
 
-        with open(path_img, 'rb') as file:
+        with self.opener(path_img, 'rb') as file:
             magic, size, rows, cols = struct.unpack(">IIII", file.read(16))
             if magic != 2051:
                 raise ValueError('Magic number mismatch, expected 2051,'
