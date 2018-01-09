@@ -42,7 +42,7 @@ except:
 
 setup(name=NAME,
       version=VERSION,
-      description='Simple MNIST data parser written in python',
+      description='Simple MNIST and EMNIST data parser written in pure Python',
       long_description=long_description,
       author='Richard Marko',
       author_email='rmarko@fedoraproject.org',

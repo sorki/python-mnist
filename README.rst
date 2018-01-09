@@ -40,3 +40,41 @@ Code sample::
   from mnist import MNIST
   mndata = MNIST('./dir_with_mnist_data_files')
   images, labels = mndata.load_training()
+
+To enable loading of gzip-ed files use::
+
+  mndata.gz = True
+
+EMNIST
+------
+
+Supports EMNIST dataset as well https://www.nist.gov/itl/iad/image-group/emnist-dataset
+
+- Get EMNIST data::
+
+        ./get_emnist_data.sh
+
+- Check preview with::
+
+        PYTHONPATH=. ./bin/emnist_preview
+
+To use EMNIST datasets you need to call::
+
+        mndata.select_emnist('digits')
+
+Where `digits` is one of the available EMNIST datasets. You can choose from
+
+ - balanced
+ - byclass
+ - bymerge
+ - digits
+ - letters
+ - mnist
+
+EMNIST loader uses gziped files by default, this can be disabled by by setting::
+
+        mndata.gz = False
+
+You also need to unpack EMNIST files as `get_emnist_data.sh` script won't do it for you.
+EMNIST loader also needs to mirror and rotate images so it is a bit slower (If this is an
+issue for you, you should repack the data to avoid mirroring and rotation on each load).

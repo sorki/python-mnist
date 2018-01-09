@@ -73,12 +73,39 @@ class MNIST(object):
         self.train_lbl_fname = 'train-labels-idx1-ubyte'
 
         self.gz = gz
+        self.emnistRotate = False
 
         self.test_images = []
         self.test_labels = []
 
         self.train_images = []
         self.train_labels = []
+
+    def select_emnist(self, dataset='digits'):
+        '''
+        Select one of the EMNIST datasets
+
+        Available datasets:
+            - balanced
+            - byclass
+            - bymerge
+            - digits
+            - letters
+            - mnist
+        '''
+        template = 'emnist-{0}-{1}-{2}-idx{3}-ubyte'
+
+        self.gz = True
+        self.emnistRotate = True
+
+        self.test_img_fname = template.format(dataset, 'test', 'images', 3)
+        self.test_lbl_fname = template.format(dataset, 'test', 'labels', 1)
+
+        self.train_img_fname = template.format(dataset, 'train', 'images', 3)
+        self.train_lbl_fname = template.format(dataset, 'train', 'labels', 1)
+
+        print(template.format(dataset, 'test', 'images', 3))
+        print(template.format(dataset, 'test', 'labels', 1))
 
     @property # read only because set only once, via constructor
     def mode(self):
@@ -192,6 +219,19 @@ class MNIST(object):
 
         for i in range(size):
             images[i][:] = image_data[i * rows * cols:(i + 1) * rows * cols]
+
+            # for some reason EMNIST is mirrored and rotated
+            if self.emnistRotate:
+                x = image_data[i * rows * cols:(i + 1) * rows * cols]
+
+                subs = []
+                for r in range(rows):
+                    subs.append(x[(rows - r) * cols - cols:(rows - r)*cols])
+
+                l = list(zip(*reversed(subs)))
+                fixed = [item for sublist in l for item in sublist]
+
+                images[i][:] = fixed
 
         return images, labels
 

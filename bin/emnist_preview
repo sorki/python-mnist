@@ -1,0 +1,44 @@
+#!/usr/bin/python3
+
+import random
+import argparse
+from mnist import MNIST
+
+
+if __name__ == "__main__":
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--id", default=None, type=int,
+                        help="ID (position) of the letter to show")
+    parser.add_argument("--training", action="store_true",
+                        help="Use training set instead of testing set")
+    parser.add_argument("--dataset", default="digits",
+                        help="EMNIST dataset to load")
+    parser.add_argument("--data", default="./emnist_data",
+                        help="Path to MNIST data dir")
+
+    args = parser.parse_args()
+
+    mn = MNIST(args.data)
+    mn.select_emnist(args.dataset)
+
+    if args.training:
+        img, label = mn.load_training()
+    else:
+        img, label = mn.load_testing()
+
+    if args.id:
+        which = args.id
+    else:
+        which = random.randrange(0, len(label))
+
+    print('Showing id {}, num: {}'.format(which, label[which]))
+
+    # letters dataset uses A=1 B=2 ...
+    if args.dataset == 'letters':
+        print('Letter "{}"'.format(chr(label[which] + ord('a') - 1)))
+
+    print(mn.display(img[which]))
+    wat = img[which]
+    #import IPython
+    #IPython.embed()
