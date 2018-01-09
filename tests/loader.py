@@ -25,6 +25,16 @@ class LoaderTestCase(unittest.TestCase):
         self.assertEqual(len(train_img), len(train_label))
         self.assertEqual(len(train_img), 60000)
 
+    def test_gzip(self):
+        mn = mnist.MNIST(DATA_PATH, gz=True)
+
+        test_img, test_label = mn.load_testing()
+        train_img, train_label = mn.load_training()
+        self.assertEqual(len(test_img), len(test_label))
+        self.assertEqual(len(test_img), 10000)
+        self.assertEqual(len(train_img), len(train_label))
+        self.assertEqual(len(train_img), 60000)
+
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO)
     unittest.main()

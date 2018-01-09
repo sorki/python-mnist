@@ -66,11 +66,11 @@ class MNIST(object):
 
         self._return_type = return_type
 
-        self.test_img_fname = 't10k-images.idx3-ubyte'
-        self.test_lbl_fname = 't10k-labels.idx1-ubyte'
+        self.test_img_fname = 't10k-images-idx3-ubyte'
+        self.test_lbl_fname = 't10k-labels-idx1-ubyte'
 
-        self.train_img_fname = 'train-images.idx3-ubyte'
-        self.train_lbl_fname = 'train-labels.idx1-ubyte'
+        self.train_img_fname = 'train-images-idx3-ubyte'
+        self.train_lbl_fname = 'train-labels-idx1-ubyte'
 
         self.gz = gz
 
@@ -167,7 +167,7 @@ class MNIST(object):
         if self.gz:
             return gzip.open(path_fn + '.gz', *args, **kwargs)
         else:
-            return open(*args, **kwargs)
+            return open(path_fn, *args, **kwargs)
 
     def load(self, path_img, path_lbl):
         with self.opener(path_lbl, 'rb') as file:
