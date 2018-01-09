@@ -6,7 +6,7 @@ except ImportError:
     from distutils.core import setup
 
 NAME = 'python-mnist'
-VERSION = '0.3'
+VERSION = '0.4'
 
 # Compile the list of packages available, because distutils doesn't have
 # an easy way to do this.
@@ -45,7 +45,7 @@ setup(name=NAME,
       description='Simple MNIST and EMNIST data parser written in pure Python',
       long_description=long_description,
       author='Richard Marko',
-      author_email='rmarko@fedoraproject.org',
+      author_email='srk@48.io',
       license='BSD',
       url='https://github.com/sorki/python-mnist',
       package_dir={'mnist': 'mnist'},
