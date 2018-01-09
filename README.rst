@@ -1,9 +1,10 @@
 python-mnist
 ============
 
-Simple MNIST data parser written in pure Python.
+Simple MNIST and EMNIST data parser written in pure Python.
 
 MNIST is a database of handwritten digits available on http://yann.lecun.com/exdb/mnist/.
+EMNIST is an extended MNIST database https://www.nist.gov/itl/iad/image-group/emnist-dataset.
 
 Requirements
 ------------
@@ -48,8 +49,6 @@ To enable loading of gzip-ed files use::
 EMNIST
 ------
 
-Supports EMNIST dataset as well https://www.nist.gov/itl/iad/image-group/emnist-dataset
-
 - Get EMNIST data::
 
         ./get_emnist_data.sh
@@ -78,3 +77,10 @@ EMNIST loader uses gziped files by default, this can be disabled by by setting::
 You also need to unpack EMNIST files as `get_emnist_data.sh` script won't do it for you.
 EMNIST loader also needs to mirror and rotate images so it is a bit slower (If this is an
 issue for you, you should repack the data to avoid mirroring and rotation on each load).
+
+Notes
+-----
+
+This package doesn't use `numpy` by design as when I've tried to find a working implementation
+all of them were based on some archaic version of `numpy` and none of them worked. This loads
+data files with `struct.unpack` instead.
