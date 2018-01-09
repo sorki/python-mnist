@@ -104,9 +104,6 @@ class MNIST(object):
         self.train_img_fname = template.format(dataset, 'train', 'images', 3)
         self.train_lbl_fname = template.format(dataset, 'train', 'labels', 1)
 
-        print(template.format(dataset, 'test', 'images', 3))
-        print(template.format(dataset, 'test', 'labels', 1))
-
     @property # read only because set only once, via constructor
     def mode(self):
         return self._mode
