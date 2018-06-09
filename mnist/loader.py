@@ -193,7 +193,11 @@ class MNIST(object):
         else:
             return open(path_fn, *args, **kwargs)
 
-    def load(self, path_img, path_lbl):
+    def load(self, path_img, path_lbl, batch=None):
+        if type(batch) is not list or len(batch) is not 2:
+            raise ValueError('batch should be a 1-D list'
+                             '(start_point, batch_size)')
+
         with self.opener(path_lbl, 'rb') as file:
             magic, size = struct.unpack(">II", file.read(8))
             if magic != 2049:
@@ -209,6 +213,10 @@ class MNIST(object):
                                  'got {}'.format(magic))
 
             image_data = array("B", file.read())
+
+        if batch is not None:
+            image_data = image_data[batch[0], batch[0]+batch[1]]
+            size = batch[1]
 
         images = []
         for i in range(size):
