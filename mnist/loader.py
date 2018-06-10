@@ -130,6 +130,45 @@ class MNIST(object):
 
         return self.train_images, self.train_labels
 
+    def load_training_in_batchs(self, batch_size):
+        if type(batch_size) is not int:
+            raise ValueError('batch_size must be a int number')
+        batch_sp = 0
+        self._get_dataset_size(os.path.join(self.path, self.train_img_fname),
+                               os.path.join(self.path, self.train_lbl_fname))
+
+        while True:
+            if batch_sp + batch_size > self.dataset_size:
+                batch_sp = 0
+            ims, labels = self.load(
+                os.path.join(self.path, self.train_img_fname),
+                os.path.join(self.path, self.train_lbl_fname),
+                batch=[batch_sp, batch_size])
+
+            self.train_images = self.process_images(ims)
+            self.train_labels = self.process_labels(labels)
+
+            batch_sp += batch_size
+            yield self.train_images, self.train_labels
+
+    def _get_dataset_size(self, path_img, path_lbl):
+        with self.opener(path_lbl, 'rb') as file:
+            magic, lb_size = struct.unpack(">II", file.read(8))
+            if magic != 2049:
+                raise ValueError('Magic number mismatch, expected 2049,'
+                                 'got {}'.format(magic))
+
+        with self.opener(path_img, 'rb') as file:
+            magic, im_size = struct.unpack(">II", file.read(8))
+            if magic != 2051:
+                raise ValueError('Magic number mismatch, expected 2051,'
+                                 'got {}'.format(magic))
+
+        if lb_size != im_size:
+            raise ValueError('image size is not equal to label size')
+
+        self.dataset_size = lb_size
+
     def process_images(self, images):
         if self.return_type is 'lists':
             return self.process_images_to_lists(images)
@@ -194,9 +233,10 @@ class MNIST(object):
             return open(path_fn, *args, **kwargs)
 
     def load(self, path_img, path_lbl, batch=None):
-        if type(batch) is not list or len(batch) is not 2:
-            raise ValueError('batch should be a 1-D list'
-                             '(start_point, batch_size)')
+        if batch is not None:
+            if type(batch) is not list or len(batch) is not 2:
+                raise ValueError('batch should be a 1-D list'
+                                 '(start_point, batch_size)')
 
         with self.opener(path_lbl, 'rb') as file:
             magic, size = struct.unpack(">II", file.read(8))
@@ -215,7 +255,9 @@ class MNIST(object):
             image_data = array("B", file.read())
 
         if batch is not None:
-            image_data = image_data[batch[0], batch[0]+batch[1]]
+            image_data = image_data[batch[0] * rows * cols:\
+                                    (batch[0] + batch[1]) * rows * cols]
+            labels = labels[batch[0]: batch[0] + batch[1]]
             size = batch[1]
 
         images = []
