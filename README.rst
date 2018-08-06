@@ -46,6 +46,9 @@ To enable loading of gzip-ed files use::
 
   mndata.gz = True
 
+Library tries to load files named `t10k-images-idx3-ubyte` `train-labels-idx1-ubyte` `train-images-idx3-ubyte` and `t10k-labels-idx1-ubyte`.
+If loading throws an exception check if these names match.
+
 EMNIST
 ------
 
