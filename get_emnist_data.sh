@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 if [ -d emnist_data ]; then
     echo "emnist_data directory already present, exiting"

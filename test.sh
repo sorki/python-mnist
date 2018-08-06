@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 dfile='data/t10k-images-idx3-ubyte'
 

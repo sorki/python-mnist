@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 if [ -d data ]; then
     echo "data directory already present, exiting"
