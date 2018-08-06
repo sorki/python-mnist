@@ -130,16 +130,15 @@ class MNIST(object):
 
         return self.train_images, self.train_labels
 
-    def load_training_in_batchs(self, batch_size):
+    def load_training_in_batches(self, batch_size):
         if type(batch_size) is not int:
             raise ValueError('batch_size must be a int number')
         batch_sp = 0
+        last = False
         self._get_dataset_size(os.path.join(self.path, self.train_img_fname),
                                os.path.join(self.path, self.train_lbl_fname))
 
         while True:
-            if batch_sp + batch_size > self.dataset_size:
-                batch_sp = 0
             ims, labels = self.load(
                 os.path.join(self.path, self.train_img_fname),
                 os.path.join(self.path, self.train_lbl_fname),
@@ -148,8 +147,15 @@ class MNIST(object):
             self.train_images = self.process_images(ims)
             self.train_labels = self.process_labels(labels)
 
-            batch_sp += batch_size
             yield self.train_images, self.train_labels
+
+            if last:
+                break
+
+            batch_sp += batch_size
+            if batch_sp + batch_size > self.dataset_size:
+                last = True
+                batch_size = self.dataset_size - batch_sp
 
     def _get_dataset_size(self, path_img, path_lbl):
         with self.opener(path_lbl, 'rb') as file:

@@ -35,6 +35,15 @@ class LoaderTestCase(unittest.TestCase):
         self.assertEqual(len(train_img), len(train_label))
         self.assertEqual(len(train_img), 60000)
 
+    def test_batches(self):
+        mn = mnist.MNIST(DATA_PATH)
+        total = 0
+
+        for images, labels in mn.load_training_in_batches(11000):
+            total += len(images)
+
+        self.assertEqual(total, 60000)
+
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO)
     unittest.main()
