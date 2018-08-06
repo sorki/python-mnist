@@ -92,6 +92,7 @@ Example
 -------
 
 ::
+
         $ PYTHONPATH=. ./bin/mnist_preview
         Showing num: 3
 
