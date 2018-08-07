@@ -13,8 +13,8 @@ def _gzip_writter(data, filepath):
         file.write(data)
 
 
-def data_packer(path, filename, imgs, gzip=False,
-                magic=2051, rows=28, cols=28):
+def img_packer(path, filename, imgs, gzip=False,
+               magic=2051, rows=28, cols=28):
     data = b''
     data += struct.pack(">IIII", magic, len(imgs), rows, cols)
 
