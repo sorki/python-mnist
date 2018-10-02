@@ -32,9 +32,9 @@ if __name__ == '__main__':
     for dt_name in DATASETS:
         mn.select_emnist(dt_name)
 
-        tra_img, _ = mn.load_training()
-
         print("========procesing {} dataset========".format(dt_name))
+
+        tra_img, _ = mn.load_training()
         img_packer(dest, train_img_fname,
                    tra_img, gzip=True)
 
