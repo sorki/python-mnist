@@ -51,6 +51,14 @@ setup(name=NAME,
       package_dir={'mnist': 'mnist'},
       packages=packages,
       package_data={'mnist': data_files},
+      scripts=[
+            'bin/emnist_preview',
+            'bin/emnist_repack',
+            'bin/emnist_get_data.sh',
+
+            'bin/mnist_preview',
+            'bin/mnist_get_data.sh',
+          ],
 
       classifiers=[
           'Development Status :: 5 - Production/Stable',
