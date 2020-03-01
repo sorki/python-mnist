@@ -1,0 +1,27 @@
+{% set name = "python-mnist" %}
+{% set version = "0.7" %}
+
+package:
+  name: "{{ name|lower }}"
+  version: "{{ version }}"
+
+source:
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: a0cced01e83b5b844cff86109280df7a672a8e4e38fc19fa68999a17f8a9fbd8
+
+build:
+  number: 0
+  script: "{{ PYTHON }} -m pip install . --no-deps --ignore-installed -vv "
+
+requirements:
+  host:
+    - pip
+    - python
+  run:
+    - python
+
+about:
+  home: https://github.com/sorki/python-mnist
+  license: BSD
+  license_family: BSD
+  summary: Simple MNIST and EMNIST data parser written in pure Python
