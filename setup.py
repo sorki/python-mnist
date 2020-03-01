@@ -6,7 +6,7 @@ except ImportError:
     from distutils.core import setup
 
 NAME = 'python-mnist'
-VERSION = '0.6'
+VERSION = '0.7'
 
 # Compile the list of packages available, because distutils doesn't have
 # an easy way to do this.
