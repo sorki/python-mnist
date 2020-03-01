@@ -18,7 +18,7 @@ Usage
 - ``cd python-mnist``
 - Get MNIST data::
 
-        ./get_data.sh
+        ./bin/mnist_get_data.sh
 
 - Check preview with::
 
@@ -54,7 +54,7 @@ EMNIST
 
 - Get EMNIST data::
 
-        ./get_emnist_data.sh
+        ./bin/emnist_get_data.sh
 
 - Check preview with::
 

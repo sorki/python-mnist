@@ -9,7 +9,7 @@ if [ $? -ne 0 ]; then
 fi
 
 if [ ! -f $dfile ]; then
-    echo "MNIST data not found, fetch with get_data.sh script"
+    echo "MNIST data not found, fetch with ./bin/mnist_get_data.sh script"
     echo "was looking for $dfile"
     exit 1
 fi
