@@ -60,9 +60,9 @@ To enable loading of gzip-ed files use:
 
    mndata.gz = True
 
-Library tries to load files named t10k-images-idx3-ubyte
-train-labels-idx1-ubyte train-images-idx3-ubyte and
-t10k-labels-idx1-ubyte. If loading throws an exception check if these
+Library tries to load files named `t10k-images-idx3-ubyte`
+`train-labels-idx1-ubyte` `train-images-idx3-ubyte` and
+`t10k-labels-idx1-ubyte`. If loading throws an exception check if these
 names match.
 
 EMNIST
@@ -103,7 +103,7 @@ setting:
 
    mndata.gz = False
 
-You also need to unpack EMNIST files as bin/emnist_get_data.sh script
+You also need to unpack EMNIST files as `bin/emnist_get_data.sh` script
 won't do it for you. EMNIST loader also needs to mirror and rotate
 images so it is a bit slower (If this is an issue for you, you should
 repack the data to avoid mirroring and rotation on each load).
@@ -111,9 +111,9 @@ repack the data to avoid mirroring and rotation on each load).
 Notes
 -----
 
-This package doesn't use numpy by design as when I've tried to find a
+This package doesn't use `numpy` by design as when I've tried to find a
 working implementation all of them were based on some archaic version of
-numpy and none of them worked. This loads data files with struct.unpack
+numpy and none of them worked. This loads data files with `struct.unpack`
 instead.
 
 Example
